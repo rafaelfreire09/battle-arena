@@ -6,16 +6,6 @@ import * as S from "./styles";
 
 import { SocketContext } from "../../services/socket";
 
-// import {
-//   createUserWithEmailAndPassword,
-//   getAuth,
-//   signInWithEmailAndPassword,
-//   signOut,
-//   GoogleAuthProvider,
-//   signInWithPopup,
-// } from "firebase/auth";
-
-// import { app } from "../../services/firebase-config";
 
 export default function Login() {
   const socket = useContext(SocketContext);
