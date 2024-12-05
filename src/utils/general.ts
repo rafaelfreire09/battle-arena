@@ -1,6 +1,17 @@
 import { CharacterSides } from "../types/CharacterSides";
 import { mapSpots } from "./mapSpots";
 
+export const GameRules = {
+  playerConfig: {
+    defaultLifeHealth: 100,
+    defaultPosition: {
+      x_asis: 3,
+      y_asis: 5,
+    },
+  },
+}
+
+
 export const WeaponsList = [
   {
     name: 'Punch',

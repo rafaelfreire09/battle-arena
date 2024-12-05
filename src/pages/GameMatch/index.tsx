@@ -10,6 +10,7 @@ import { SocketContext } from "../../services/socket";
 import {
   canHit,
   checkWeapon,
+  GameRules,
   receiveDamage,
   WeaponsList,
 } from "../../utils/general";
@@ -23,20 +24,25 @@ export const GameMatch = () => {
   const opponentId = urlSearch.get("opponentId") as string | "";
   const [endGame, setEndGame] = useState("");
 
-  const player1 = useCharacter(username, 3, 5);
+  const player1 = useCharacter(
+    username,
+    GameRules.playerConfig.defaultPosition.x_asis,
+    GameRules.playerConfig.defaultPosition.y_asis,
+  );
+  
+  const [player1Hud, setPlayer1Hud] = useState({
+    life: GameRules.playerConfig.defaultLifeHealth,
+    weapon: WeaponsList[0].name,
+    weaponImage: WeaponsList[0].image,
+    damage: WeaponsList[0].damage,
+  });
+
   const [player2, setPlayer2] = useState({
     name: "",
     side: "down" as CharacterSides,
-    x: 3,
-    y: 5,
-    life: 1000,
-  });
-
-  const [player1Hud, setPlayer1Hud] = useState({
-    life: 1000,
-    weapon: "Empty",
-    weaponImage: WeaponsList[0].image,
-    damage: 0.5,
+    x: GameRules.playerConfig.defaultPosition.x_asis,
+    y: GameRules.playerConfig.defaultPosition.y_asis,
+    life: GameRules.playerConfig.defaultLifeHealth,
   });
 
   useEffect(() => {
