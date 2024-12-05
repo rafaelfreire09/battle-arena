@@ -3,8 +3,8 @@ import { CharacterSides } from "./CharacterSides";
 export interface RoomClient {
   client_id: string,
   username: string,
-  email: string,
-  password: string,
+  // email: string;
+  // password: string;
 }
 
 export interface PlayerInfo {

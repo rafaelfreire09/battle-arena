@@ -12,17 +12,19 @@ export default function Login() {
   let navigate = useNavigate();
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
   function connect() {
-    socket.emit("select_room", {
-      client_id: socket.id,
-      username,
-      email,
-      password,
-    });
-    navigate("/lobby?username=" + username);
+    if (username != '') {
+      socket.emit("select_room", {
+        client_id: socket.id,
+        username,
+        // email,
+        // password,
+      });
+      navigate("/lobby?username=" + username);
+    }
   }
 
   return (
@@ -33,12 +35,12 @@ export default function Login() {
           <input
             type="text"
             name="username"
-            placeholder="Name..."
+            placeholder="Digite seu nome..."
             onChange={(event) => {
               setUsername(event.target.value);
             }}
           />
-          <input
+          {/* <input
             type="password"
             name="password"
             placeholder="Password..."
@@ -53,7 +55,7 @@ export default function Login() {
             onChange={(event) => {
               setEmail(event.target.value);
             }}
-          />
+          /> */}
           <button
             onClick={() => {
               connect();
