@@ -62,14 +62,11 @@ export interface EndGame {
 export interface ServerToClientEvents {
   // On
   message: (data: Message) => void;
-  alert: (data: boolean) => void;
-  username: (data: string) => void;
   join_room: (data: JoinRoom) => void;
   list_players: (data: Player) => void;
   status_room: (data: string) => void;
   list_rooms: (data: Rooms[]) => void;
   gameMove: (data: GameMove) => void;
-  auth: (data: string) => void;
   hit: (data: Hit) => void;
   opponentLife: (data: OpponentLife) => void;
   endGame: (data: EndGame) => void;
@@ -77,9 +74,8 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   // Emit
-  hello: () => void;
   message: (data: Message) => void;
-  select_room: (data: RoomClient) => void;
+  join_lobby: (data: RoomClient) => void;
   join_room: (data: JoinRoom) => void;
   list_players: (callback: (e: string[]) => void) => void;
   list_rooms: (callback: (e: Rooms[]) => void) => void;

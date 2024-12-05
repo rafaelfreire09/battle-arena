@@ -17,7 +17,7 @@ export default function Login() {
 
   function connect() {
     if (username != '') {
-      socket.emit("select_room", {
+      socket.emit("join_lobby", {
         client_id: socket.id,
         username,
         // email,
