@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export default function Login() {
   // const [password, setPassword] = useState("");
 
   function connect() {
-    if (username != '') {
+    if (username !== '') {
       socket.emit("join_lobby", {
         client_id: socket.id,
         username,

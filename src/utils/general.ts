@@ -52,19 +52,19 @@ export const WeaponsList = [
 ]
 
 export const canHit = (player1X: number, player1Y: number, player2X: number, player2Y: number, player1Side: CharacterSides) => {
-  if (player1X == player2X && (player1Y - player2Y == -1) && (player1Side == 'down')) {
+  if (player1X === player2X && (player1Y - player2Y === -1) && (player1Side === 'down')) {
     return true
   }
 
-  if (player1X == player2X && (player1Y - player2Y == 1) && (player1Side == 'up')) {
+  if (player1X === player2X && (player1Y - player2Y === 1) && (player1Side === 'up')) {
     return true
   }
 
-  if (player1Y == player2Y && (player1X - player2X == -1) && (player1Side == 'right')) {
+  if (player1Y === player2Y && (player1X - player2X === -1) && (player1Side === 'right')) {
     return true
   }
 
-  if (player1Y == player2Y && (player1X - player2X == 1) && (player1Side == 'left')) {
+  if (player1Y === player2Y && (player1X - player2X === 1) && (player1Side === 'left')) {
     return true
   }
 

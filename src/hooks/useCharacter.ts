@@ -3,7 +3,7 @@ import { CharacterSides } from '../types/CharacterSides';
 import { mapSpots } from '../utils/mapSpots';
 
 export const useCharacter = (playerName: string, xAxis: number, yAxis: number) => {
-    const [name, setName] = useState(playerName);
+    const [name] = useState(playerName);
     const [pos, setPos] = useState({ x: xAxis, y: yAxis });
     const [side, setSide] = useState<CharacterSides>('down');
 
