@@ -27,9 +27,9 @@ export const GameMatch = () => {
   const player1 = useCharacter(
     username,
     GameRules.playerConfig.defaultPosition.x_asis,
-    GameRules.playerConfig.defaultPosition.y_asis,
+    GameRules.playerConfig.defaultPosition.y_asis
   );
-  
+
   const [player1Hud, setPlayer1Hud] = useState({
     life: GameRules.playerConfig.defaultLifeHealth,
     weapon: WeaponsList[0].name,

@@ -31,19 +31,30 @@ export default function Lobby() {
 
   useEffect(() => {
     socket.on("list_rooms", (data) => {
-      data.map(room => {
-        if ((room.status === 'waiting') && (room.players.length >= 2)) {
-          const result = room.players.find(player => player.client_id === socket.id)
-          
+      data.map((room) => {
+        if (room.status === "waiting" && room.players.length >= 2) {
+          const result = room.players.find(
+            (player) => player.client_id === socket.id
+          );
+
           if (result !== undefined) {
-            const opponent = room.players.find(player => player.client_id !== socket.id);
+            const opponent = room.players.find(
+              (player) => player.client_id !== socket.id
+            );
 
             if (opponent !== undefined) {
-              navigate("/game-match?room=" + room.roomId + '&username=' + username + '&opponentId=' + opponent.client_id);
+              navigate(
+                "/game-match?room=" +
+                  room.roomId +
+                  "&username=" +
+                  username +
+                  "&opponentId=" +
+                  opponent.client_id
+              );
             }
           }
         }
-      })
+      });
 
       setRoomList(data);
     });
@@ -95,7 +106,7 @@ export default function Lobby() {
   return (
     <>
       <S.Container>
-        <br/>
+        <br />
         <div>Selecione a sala</div>
         <select
           name="select_room"

@@ -1,1 +1,1 @@
-export type CharacterSides = 'down' | 'left' | 'right' | 'up';
+export type CharacterSides = "down" | "left" | "right" | "up";

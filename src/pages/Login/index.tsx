@@ -6,7 +6,6 @@ import * as S from "./styles";
 
 import { SocketContext } from "../../services/socket";
 
-
 export default function Login() {
   const socket = useContext(SocketContext);
   let navigate = useNavigate();
@@ -16,7 +15,7 @@ export default function Login() {
   // const [password, setPassword] = useState("");
 
   function connect() {
-    if (username !== '') {
+    if (username !== "") {
       socket.emit("join_lobby", {
         client_id: socket.id,
         username,

@@ -1,0 +1,6 @@
+.next
+.husky
+node_modules
+.prettierignore
+.eslintignore
+yarn.lock
