@@ -14,9 +14,11 @@ import {
   receiveDamage,
   WeaponsList,
 } from "../../utils/general";
+import { useNavigate } from "react-router-dom";
 
 export const GameMatch = () => {
   const socket = useContext(SocketContext);
+  const navigate = useNavigate();
 
   const urlSearch = new URLSearchParams(window.location.search);
   const roomId = urlSearch.get("room") as string | "";
@@ -114,6 +116,15 @@ export const GameMatch = () => {
     });
   }, [player1Hud.life]);
 
+  function connect() {
+    socket.emit("join_lobby", {
+      client_id: socket.id,
+      username,
+    });
+
+    navigate("/lobby?username=" + username);
+  }
+
   const handleMouseClick = () => {
     if (canHit(player1.x, player1.y, player2.x, player2.y, player1.side)) {
       socket.emit("hit", {
@@ -144,42 +155,59 @@ export const GameMatch = () => {
     }
   };
   return (
-    <S.Container
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      onClick={handleMouseClick}
-    >
-      <S.Map>
-        <Character
-          x={player1.x}
-          y={player1.y}
-          side={player1.side}
-          name={player1.name}
-          weapon={player1Hud.weaponImage}
-        />
-        <Character
-          x={player2.x}
-          y={player2.y}
-          side={player2.side}
-          name={player2.name}
-        />
-      </S.Map>
+    <S.Container>
+      <S.Wrapper
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+        onClick={handleMouseClick}
+      >
+        <S.Map>
+          <Character
+            x={player1.x}
+            y={player1.y}
+            side={player1.side}
+            name={player1.name}
+            weapon={player1Hud.weaponImage}
+          />
+          <Character
+            x={player2.x}
+            y={player2.y}
+            side={player2.side}
+            name={player2.name}
+          />
+        </S.Map>
 
-      <Hud
-        endGame={endGame}
-        life={player1Hud.life}
-        weapon={player1Hud.weapon}
-        strengh={player1Hud.damage}
-        opponentsLife={player2.life}
-      />
-      {WeaponsList.map((weapon, index) => (
-        <S.Weapon
-          top={weapon.defaultPosition.y}
-          left={weapon.defaultPosition.x}
-          src={weapon.image}
-          key={index}
-        />
-      ))}
+        <div>
+          <Hud
+            life={player1Hud.life}
+            weapon={player1Hud.weapon}
+            strengh={player1Hud.damage}
+            opponentsLife={player2.life}
+          />
+          {WeaponsList.map((weapon, index) => (
+            <S.Weapon
+              top={weapon.defaultPosition.y}
+              left={weapon.defaultPosition.x}
+              src={weapon.image}
+              key={index}
+            />
+          ))}
+        </div>
+      </S.Wrapper>
+      {endGame && (
+        <S.EndGameSection>
+          <S.Result>
+            <span>{endGame}</span>{" "}
+          </S.Result>
+          <button
+            onClick={() => {
+              connect();
+            }}
+          >
+            Return to lobby
+          </button>
+        </S.EndGameSection>
+      )}
     </S.Container>
   );
 };

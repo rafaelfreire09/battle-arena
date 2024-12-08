@@ -24,7 +24,7 @@ export const LifeLabel = styled.div`
 `;
 
 export const WeaponLabel = styled.div`
-  margin-top: 3rem;
+  margin-top: 7rem;
 
   span {
     color: gray;
@@ -44,7 +44,7 @@ export const StrenghtLabel = styled.div`
 `;
 
 export const OpponentLifeLabel = styled.div`
-  margin-top: 10rem;
+  margin-top: 3rem;
   /* font-size: 0.8rem; */
 
   display: flex;
