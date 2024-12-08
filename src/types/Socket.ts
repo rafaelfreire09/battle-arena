@@ -19,7 +19,6 @@ export interface JoinRoom {
 }
 
 export interface Message {
-  [x: string]: any;
   text: string;
   username: string;
 }

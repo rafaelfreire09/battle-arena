@@ -8,7 +8,7 @@ import { SocketContext } from "../../services/socket";
 
 export default function Login() {
   const socket = useContext(SocketContext);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   // const [email, setEmail] = useState("");

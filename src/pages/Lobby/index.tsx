@@ -143,9 +143,8 @@ export default function Lobby() {
               id="message_input"
               value={message}
               onChange={handleMessageInput}
-              onKeyPress={(event) =>
-                handleKeyPress(event.key, event.target.value)
-              }
+              onKeyUp={(event) =>
+                handleKeyPress(event.key, event.target.value)}
             />
           </S.Chat>
           <S.Users>
