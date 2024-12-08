@@ -34,7 +34,7 @@ export default function Login() {
           <input
             type="text"
             name="username"
-            placeholder="Digite seu nome..."
+            placeholder="Type your name..."
             onChange={(event) => {
               setUsername(event.target.value);
             }}
@@ -62,7 +62,7 @@ export default function Login() {
               // login();
             }}
           >
-            Entrar
+            Enter the lobby
           </button>
         </S.Form>
       </S.Container>

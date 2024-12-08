@@ -107,7 +107,7 @@ export default function Lobby() {
     <>
       <S.Container>
         <br />
-        <div>Selecione a sala</div>
+        <div>Select room</div>
         <select
           name="select_room"
           id="select_room"
@@ -119,16 +119,16 @@ export default function Lobby() {
           {roomList?.map((data, key) =>
             data.status === "starting" ? (
               <option key={key} value={data.roomId} disabled style={style}>
-                Sala {data.roomId} ({data.status})
+                Room {data.roomId} ({data.status})
               </option>
             ) : (
               <option key={key} value={data.roomId}>
-                Sala {data.roomId} ({data.status})
+                Room {data.roomId} ({data.status})
               </option>
             )
           )}
         </select>
-        <button onClick={() => joinRoom()}>Entrar na sala</button>
+        <button onClick={() => joinRoom()}>Enter the room</button>
         <S.Content>
           <S.Chat>
             {messagesList?.map((data, key) => {
@@ -139,7 +139,7 @@ export default function Lobby() {
               );
             })}
             <input
-              placeholder="Digite sua mensagem"
+              placeholder="Type your message"
               id="message_input"
               value={message}
               onChange={handleMessageInput}
