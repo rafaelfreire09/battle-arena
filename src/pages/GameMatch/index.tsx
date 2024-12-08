@@ -47,8 +47,6 @@ export const GameMatch = () => {
 
   useEffect(() => {
     socket.on("gameMove", (data) => {
-      // console.log(data);
-
       setPlayer2((player2) => ({
         ...player2,
         name: data.playerId,
@@ -59,8 +57,6 @@ export const GameMatch = () => {
     });
 
     socket.on("hit", (data) => {
-      // console.log(data);
-
       setPlayer1Hud((player1Hud) => ({
         ...player1Hud,
         life: receiveDamage(player1Hud.life, data.damage),
@@ -68,17 +64,12 @@ export const GameMatch = () => {
     });
 
     socket.on("opponentLife", (data) => {
-      // console.log(data);
-
       if (data.life === 0) {
         socket.emit("endGame", {
           winner: username,
           opponentId: opponentId,
           roomId: +roomId,
         });
-        endGame === username
-          ? setEndGame(username + " perdeu a batalha!")
-          : setEndGame(username + " venceu a batalha!");
       }
       setPlayer2((player2) => ({
         ...player2,
@@ -87,7 +78,11 @@ export const GameMatch = () => {
     });
 
     socket.on("endGame", (data) => {
-      setEndGame(username + " perdeu a batalha!");
+      if (data.winner === username) {
+        setEndGame("You won the battle! Congratulations!");
+      } else {
+        setEndGame(data.winner + " won the battle!");
+      }
     });
   }, [socket, endGame]);
 
@@ -103,8 +98,6 @@ export const GameMatch = () => {
     const newWeapon = checkWeapon(player1.x, player1.y);
 
     if (newWeapon) {
-      // console.log('Changed weapon');
-
       setPlayer1Hud((player1Hud) => ({
         ...player1Hud,
         weapon: newWeapon.name,
@@ -123,8 +116,6 @@ export const GameMatch = () => {
 
   const handleMouseClick = () => {
     if (canHit(player1.x, player1.y, player2.x, player2.y, player1.side)) {
-      // console.log('Hit: ');
-
       socket.emit("hit", {
         damage: player1Hud.damage,
         opponentId: opponentId,
