@@ -1,6 +1,7 @@
 import * as S from "./styles";
 
 import { Message } from "../../types/Socket";
+import { useEffect, useRef } from "react";
 
 type ChatProps = {
   messagesList: Message[];
@@ -8,9 +9,18 @@ type ChatProps = {
 };
 
 export default function Chat({ messagesList, username }: ChatProps) {
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when messagesList changes
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messagesList]);
+
   return (
     <>
-      <S.Chat>
+      <S.Chat ref={chatRef}>
         {messagesList?.map((data, key) => {
           if (data.username === username) {
             return (
