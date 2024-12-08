@@ -6,7 +6,7 @@ import { CharacterSides } from "../../types/CharacterSides";
 import { Character } from "../../components/Character";
 import { Hud } from "../../components/Hud";
 
-import { SocketContext } from "../../services/socket";
+import { SocketContext } from "../../context/Socket";
 import {
   canHit,
   checkWeapon,

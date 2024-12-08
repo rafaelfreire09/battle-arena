@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import * as S from "./styles";
 
-import { SocketContext } from "../../services/socket";
+import { SocketContext } from "../../context/Socket";
 
 export default function Login() {
   const socket = useContext(SocketContext);

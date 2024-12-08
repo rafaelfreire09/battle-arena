@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 
-import { SocketContext } from "../../services/socket";
+import { SocketContext } from "../../context/Socket";
 import { Message, Rooms } from "../../types/Socket";
 import { useNavigate } from "react-router-dom";
 import Chat from "../../components/Chat";
