@@ -78,6 +78,7 @@ export interface ClientToServerEvents {
   join_room: (data: JoinRoom) => void;
   list_players: (callback: (e: string[]) => void) => void;
   list_rooms: (callback: (e: Rooms[]) => void) => void;
+  list_messages: (callback: (e: Message[]) => void) => void;
   gameMove: (data: GameMove) => void;
   hit: (data: Hit) => void;
   opponentLife: (data: OpponentLife) => void;

@@ -28,6 +28,10 @@ export default function Lobby() {
     socket.emit("list_rooms", (response) => {
       setRoomList(response);
     });
+
+    socket.emit("list_messages", (response) => {
+      setMessagesList(response);
+    });
   }, []);
 
   useEffect(() => {
