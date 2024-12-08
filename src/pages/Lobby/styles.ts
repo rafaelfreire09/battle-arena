@@ -42,21 +42,9 @@ export const Container = styled.div`
   }
 `;
 
-export const Users = styled.div`
-  display: flex;
-  flex-direction: column;
-  p {
-    padding: 0.1rem;
-  }
-
-  div {
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-  }
-`;
 export const Content = styled.div`
   display: flex;
+  margin-top: 5rem;
   p {
     padding: 0.2rem;
     display: flex;
@@ -64,6 +52,34 @@ export const Content = styled.div`
     margin-left: 5px;
   }
 `;
+
+export const ChatWrapper = styled.div`
+  width: 300px;
+
+  input {
+    border: 1px solid #c4c4c4;
+    outline: none;
+    padding: 1rem;
+  }
+`;
+
+export const Users = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 300px;
+  width: 110px;
+
+  p {
+    padding: 0.1rem;
+  }
+
+  div {
+    align-items: center;
+    display: flex;
+  }
+`;
+
 export const Ball = styled.div`
   width: 7px;
   height: 7px;
@@ -71,35 +87,4 @@ export const Ball = styled.div`
   border-radius: 50%;
 
   background-color: #30cc51;
-`;
-export const Chat = styled.div`
-  background-color: white;
-  height: 300px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #24282f;
-  overflow: scroll;
-  flex: 1 1 auto;
-
-  h5 {
-    justify-content: left;
-    align-items: left;
-    display: flex;
-    padding: 0;
-    margin: 10px;
-    font-family: "Roboto", sans-serif;
-  }
-
-  input {
-    border: 1px solid #c4c4c4;
-    outline: none;
-    bottom: 0;
-    top: 1;
-    padding: 1rem;
-
-    justify-content: flex-end;
-  }
 `;

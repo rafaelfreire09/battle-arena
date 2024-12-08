@@ -4,6 +4,7 @@ import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../services/socket";
 import { Message, Rooms } from "../../types/Socket";
 import { useNavigate } from "react-router-dom";
+import Chat from "../../components/Chat";
 
 export default function Lobby() {
   const socket = useContext(SocketContext);
@@ -130,31 +131,29 @@ export default function Lobby() {
         </select>
         <button onClick={() => joinRoom()}>Enter the room</button>
         <S.Content>
-          <S.Chat>
-            {messagesList?.map((data, key) => {
-              return (
-                <h5 key={key}>
-                  {data.username}: {data.text}
-                </h5>
-              );
-            })}
+          <S.ChatWrapper>
+            <Chat 
+              messagesList={messagesList}
+              username={username}
+            />
             <input
               placeholder="Type your message"
               id="message_input"
               value={message}
               onChange={handleMessageInput}
-              onKeyUp={(event) =>
-                handleKeyPress(event.key, event.target.value)}
+              onKeyUp={(event) => handleKeyPress(event.key, event.target.value)}
             />
-          </S.Chat>
-          <S.Users>
-            {clientsList.map((username, key) => (
-              <div>
-                <S.Ball />
-                <p key={key}>{username}</p>
-              </div>
-            ))}
-          </S.Users>
+          </S.ChatWrapper>
+          <div>
+            <S.Users>
+              {clientsList.map((username, key) => (
+                <div>
+                  <S.Ball />
+                  <p key={key}>{username}</p>
+                </div>
+              ))}
+            </S.Users>
+          </div>
         </S.Content>
       </S.Container>
     </>
