@@ -46,7 +46,6 @@ export const EndGameSection = styled.div`
     color: white;
     cursor: pointer;
     font-weight: 700;
-    font-family: "Roboto";
     width: 250px;
     margin: 1rem;
     &:hover {

@@ -16,7 +16,6 @@ export const Container = styled.div`
     color: white;
     cursor: pointer;
     font-weight: 700;
-    font-family: "Roboto";
     width: 250px;
     margin: 1rem;
     &:hover {
@@ -33,7 +32,6 @@ export const Container = styled.div`
     outline: none;
     option {
       cursor: auto;
-      font-family: "Roboto";
       font-size: 0.9rem;
       font-weight: 500;
       padding: 1rem;

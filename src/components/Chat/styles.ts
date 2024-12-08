@@ -16,7 +16,6 @@ export const MessageWrapper = styled.div<{
   justify-content: ${(props) => props.position};
   padding: 0;
   margin: 20px 15px;
-  font-family: "Roboto", sans-serif;
 `;
 
 export const MessageSection = styled.div<{
