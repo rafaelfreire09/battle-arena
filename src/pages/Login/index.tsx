@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -12,19 +12,53 @@ export default function Login() {
   const navigate = useNavigate();
   const { setUsername } = useAuth();
 
-  const [usernameInput, setUsernameInput] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
 
-  function connect() {
+  const [usernameInput, setUsernameInput] = useState("");
+
+  useEffect(() => {
+    // Check socket connection
+    function onConnect() {
+      setIsConnected(true);
+      setConnectionError(false);
+    }
+
+    function onDisconnect() {
+      setIsConnected(false);
+      setConnectionError(true);
+    }
+
+    // Add event listeners
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+
+    // Initial connection check
+    if (socket.connected) {
+      setIsConnected(true);
+    } else {
+      setConnectionError(true);
+    }
+
+    // Cleanup listeners
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+    };
+  }, [socket]);
+
+  function redirectToLobby() {
+    if (!isConnected) {
+      setConnectionError(true);
+      return;
+    }
+
     if (usernameInput !== "") {
       setUsername(usernameInput);
 
       socket.emit("join_lobby", {
         client_id: socket.id,
         username: usernameInput,
-        // email,
-        // password,
       });
 
       navigate("/lobby");
@@ -34,42 +68,27 @@ export default function Login() {
   return (
     <>
       <S.Container>
-        <S.Form>
-          <h2>Battle Arena</h2>
-          <input
-            type="text"
-            name="username"
-            placeholder="Type your name..."
-            onChange={(event) => {
-              setUsernameInput(event.target.value);
-            }}
-          />
-          {/* <input
-            type="password"
-            name="password"
-            placeholder="Password..."
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email..."
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-          /> */}
-          <button
-            onClick={() => {
-              connect();
-              // register();
-              // login();
-            }}
-          >
-            Enter the lobby
-          </button>
-        </S.Form>
+        <S.FormWrapper>
+          <S.Title>Battle Arena</S.Title>
+          <S.Form>
+            {connectionError && (
+              <S.ConnectionError>
+                Socket connection error. Please check your connection.
+              </S.ConnectionError>
+            )}
+            <input
+              type="text"
+              name="username"
+              placeholder="Type your name..."
+              onChange={(event) => {
+                setUsernameInput(event.target.value);
+              }}
+            />
+            <button onClick={redirectToLobby} disabled={!isConnected}>
+              {isConnected ? "Enter the lobby" : "Connecting..."}
+            </button>
+          </S.Form>
+        </S.FormWrapper>
       </S.Container>
     </>
   );
