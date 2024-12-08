@@ -2,12 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { GameMatch } from "./pages/GameMatch";
 import Lobby from "./pages/Lobby";
 import Login from "./pages/Login";
+import { AuthProvider } from "./context/AuthProvider";
 import { socket, SocketContext } from "./context/Socket";
 
 const App = () => {
   return (
     <>
-      <SocketContext.Provider value={socket}>
+    <SocketContext.Provider value={socket}>
+      <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -15,7 +17,8 @@ const App = () => {
             <Route path="/lobby" element={<Lobby />} />
           </Routes>
         </BrowserRouter>
-      </SocketContext.Provider>
+      </AuthProvider>
+    </SocketContext.Provider>
     </>
   );
 };

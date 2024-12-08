@@ -15,19 +15,17 @@ import {
   WeaponsList,
 } from "../../utils/general";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthProvider";
 
 export const GameMatch = () => {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
+  const { username, roomId, opponentId, clearRoomAndOpponentId } = useAuth();
 
-  const urlSearch = new URLSearchParams(window.location.search);
-  const roomId = urlSearch.get("room") as string | "";
-  const username = urlSearch.get("username") as string | "";
-  const opponentId = urlSearch.get("opponentId") as string | "";
   const [endGame, setEndGame] = useState("");
 
   const player1 = useCharacter(
-    username,
+    username!,
     GameRules.playerConfig.defaultPosition.x_asis,
     GameRules.playerConfig.defaultPosition.y_asis
   );
@@ -46,6 +44,16 @@ export const GameMatch = () => {
     y: GameRules.playerConfig.defaultPosition.y_asis,
     life: GameRules.playerConfig.defaultLifeHealth,
   });
+
+  useEffect(() => {
+    if (!roomId || !opponentId) {
+      navigate("/lobby");
+    }
+    
+    if (!username) {
+      navigate("/");
+    }
+  }, []);
 
   useEffect(() => {
     socket.on("gameMove", (data) => {
@@ -68,9 +76,9 @@ export const GameMatch = () => {
     socket.on("opponentLife", (data) => {
       if (data.life === 0) {
         socket.emit("endGame", {
-          winner: username,
-          opponentId: opponentId,
-          roomId: +roomId,
+          winner: username!,
+          opponentId: opponentId!,
+          roomId: +roomId!,
         });
       }
       setPlayer2((player2) => ({
@@ -94,7 +102,7 @@ export const GameMatch = () => {
       side: player1.side,
       xAxis: player1.x,
       yAxis: player1.y,
-      opponentId: opponentId,
+      opponentId: opponentId!,
     });
 
     const newWeapon = checkWeapon(player1.x, player1.y);
@@ -112,24 +120,26 @@ export const GameMatch = () => {
   useEffect(() => {
     socket.emit("opponentLife", {
       life: player1Hud.life,
-      opponentId: opponentId,
+      opponentId: opponentId!,
     });
   }, [player1Hud.life]);
 
-  function connect() {
+  function returnToLobby() {
     socket.emit("join_lobby", {
       client_id: socket.id,
-      username,
+      username: username!,
     });
 
-    navigate("/lobby?username=" + username);
+    clearRoomAndOpponentId()
+
+    navigate("/lobby");
   }
 
   const handleMouseClick = () => {
     if (canHit(player1.x, player1.y, player2.x, player2.y, player1.side)) {
       socket.emit("hit", {
         damage: player1Hud.damage,
-        opponentId: opponentId,
+        opponentId: opponentId!,
       });
     }
   };
@@ -201,7 +211,7 @@ export const GameMatch = () => {
           </S.Result>
           <button
             onClick={() => {
-              connect();
+              returnToLobby();
             }}
           >
             Return to lobby

@@ -5,24 +5,29 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./styles";
 
 import { SocketContext } from "../../context/Socket";
+import { useAuth } from "../../context/AuthProvider";
 
 export default function Login() {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
+  const { setUsername } = useAuth();
 
-  const [username, setUsername] = useState("");
+  const [usernameInput, setUsernameInput] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
 
   function connect() {
-    if (username !== "") {
+    if (usernameInput !== "") {
+      setUsername(usernameInput);
+
       socket.emit("join_lobby", {
         client_id: socket.id,
-        username,
+        username: usernameInput,
         // email,
         // password,
       });
-      navigate("/lobby?username=" + username);
+
+      navigate("/lobby");
     }
   }
 
@@ -36,7 +41,7 @@ export default function Login() {
             name="username"
             placeholder="Type your name..."
             onChange={(event) => {
-              setUsername(event.target.value);
+              setUsernameInput(event.target.value);
             }}
           />
           {/* <input

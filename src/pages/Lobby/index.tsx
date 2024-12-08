@@ -5,20 +5,25 @@ import { SocketContext } from "../../context/Socket";
 import { Message, Rooms } from "../../types/Socket";
 import { useNavigate } from "react-router-dom";
 import Chat from "../../components/Chat";
+import { useAuth } from "../../context/AuthProvider";
 
 export default function Lobby() {
   const socket = useContext(SocketContext);
   let navigate = useNavigate();
-
+  const { username, setRoomId, setOpponentId } = useAuth();
+  
   const [room, setRoom] = useState(0);
-  // const [username, setUsername] = useState("");
-  const urlSearch = new URLSearchParams(window.location.search);
-  const username = urlSearch.get("username") as string | "";
-
   const [message, setMessage] = useState("");
   const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [roomList, setRoomList] = useState<Rooms[]>();
   const [clientsList, setClientsList] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!username) {
+      navigate("/");
+      return;
+    }
+  }, []);
 
   useEffect(() => {
     socket.emit("list_players", (response) => {
@@ -48,14 +53,10 @@ export default function Lobby() {
             );
 
             if (opponent !== undefined) {
-              navigate(
-                "/game-match?room=" +
-                  room.roomId +
-                  "&username=" +
-                  username +
-                  "&opponentId=" +
-                  opponent.client_id
-              );
+              setRoomId(String(room.roomId));
+              setOpponentId(opponent.client_id);
+
+              navigate("/game-match");
             }
           }
         }
@@ -83,7 +84,7 @@ export default function Lobby() {
   const handleKeyPress = (event: string, text: string) => {
     if (event === "Enter") {
       const data = {
-        username,
+        username: username!,
         text,
       };
 
@@ -95,7 +96,7 @@ export default function Lobby() {
   function joinRoom() {
     socket.emit("join_room", {
       client_id: socket.id,
-      username,
+      username: username!,
       room,
     });
   }
@@ -136,10 +137,7 @@ export default function Lobby() {
         <button onClick={() => joinRoom()}>Enter the room</button>
         <S.Content>
           <S.ChatWrapper>
-            <Chat 
-              messagesList={messagesList}
-              username={username}
-            />
+            <Chat messagesList={messagesList} username={username!} />
             <input
               placeholder="Type your message"
               id="message_input"
