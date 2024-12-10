@@ -72,21 +72,26 @@ export default function Login() {
           <S.Title>Battle Arena</S.Title>
           <S.Form>
             {connectionError && (
-              <S.ConnectionError>
-                Socket connection error. Please check your connection.
-              </S.ConnectionError>
+              <>
+                <S.ConnectionWarningTitle>Connecting...</S.ConnectionWarningTitle>
+                <S.ConnectionWarningSubtitle>
+                  If it takes too long, please contact the developer.
+                </S.ConnectionWarningSubtitle>
+              </>
             )}
-            <input
-              type="text"
-              name="username"
-              placeholder="Type your name..."
-              onChange={(event) => {
-                setUsernameInput(event.target.value);
-              }}
-            />
-            <button onClick={redirectToLobby} disabled={!isConnected}>
-              {isConnected ? "Enter the lobby" : "Connecting..."}
-            </button>
+            {isConnected && (
+              <>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Type your name..."
+                  onChange={(event) => {
+                    setUsernameInput(event.target.value);
+                  }}
+                />
+                <button onClick={redirectToLobby}>Enter the lobby</button>
+              </>
+            )}
           </S.Form>
         </S.FormWrapper>
       </S.Container>

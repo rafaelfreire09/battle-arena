@@ -71,7 +71,13 @@ export const Form = styled.form`
   margin-top: 70px;
 `;
 
-export const ConnectionError = styled.form`
-  color: red;
-  margin-bottom: 30px;
+export const ConnectionWarningTitle = styled.form`
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 20px;
+`;
+
+export const ConnectionWarningSubtitle = styled.form`
+  color: gray;
+  font-size: 14px;
 `;
