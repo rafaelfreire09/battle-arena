@@ -4,11 +4,13 @@ export const Container = styled.div`
   text-align: center;
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   background-color: #24282f;
   height: 100vh;
   color: white;
+  gap: 0 300px;
+
   button {
     padding: 1rem 2rem;
     background-color: #30cc51;
@@ -23,26 +25,11 @@ export const Container = styled.div`
     }
     transition: filter 0.2s;
   }
-  select {
-    margin: 1rem 2rem;
-
-    height: 320px;
-    width: 450px;
-    border: none;
-    outline: none;
-    option {
-      cursor: auto;
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 1rem;
-      color: #0a0a0a;
-    }
-  }
 `;
 
-export const Content = styled.div`
+export const Sidesection = styled.div`
   display: flex;
-  margin-top: 5rem;
+
   p {
     padding: 0.2rem;
     display: flex;
@@ -52,9 +39,8 @@ export const Content = styled.div`
 `;
 
 export const ChatWrapper = styled.div`
-  width: 300px;
-
   input {
+    width: 300px;
     border: 1px solid #c4c4c4;
     outline: none;
     padding: 1rem;
@@ -65,8 +51,9 @@ export const Users = styled.div`
   display: flex;
   flex-direction: column;
   overflow: scroll;
-  height: 300px;
+  height: 500px;
   width: 110px;
+  margin: 0 15px 0 10px;
 
   p {
     padding: 0.1rem;
@@ -81,8 +68,32 @@ export const Users = styled.div`
 export const Ball = styled.div`
   width: 7px;
   height: 7px;
-  margin-left: 1rem;
+  margin: 0 0.5rem 0 1rem;
   border-radius: 50%;
 
   background-color: #30cc51;
+`;
+
+export const RoomSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const RoomSelect = styled.select`
+  margin: 1rem 2rem;
+
+  height: 580px;
+  width: 560px;
+  border: none;
+  outline: none;
+`;
+
+export const RoomOption = styled.option`
+  cursor: auto;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 1rem;
+  color: #0a0a0a;
 `;

@@ -112,30 +112,7 @@ export default function Lobby() {
   return (
     <>
       <S.Container>
-        <br />
-        <div>Select room</div>
-        <select
-          name="select_room"
-          id="select_room"
-          size={5}
-          onChange={(event) => {
-            setRoom(+event.target.value);
-          }}
-        >
-          {roomList?.map((data, key) =>
-            data.status === "starting" ? (
-              <option key={key} value={data.roomId} disabled style={style}>
-                Room {data.roomId} ({data.status})
-              </option>
-            ) : (
-              <option key={key} value={data.roomId}>
-                Room {data.roomId} ({data.status})
-              </option>
-            )
-          )}
-        </select>
-        <button onClick={() => joinRoom()}>Enter the room</button>
-        <S.Content>
+        <S.Sidesection>
           <S.ChatWrapper>
             <Chat messagesList={messagesList} username={username!} />
             <input
@@ -146,17 +123,44 @@ export default function Lobby() {
               onKeyUp={(event) => handleKeyPress(event.key, event.target.value)}
             />
           </S.ChatWrapper>
-          <div>
-            <S.Users>
-              {clientsList.map((username, key) => (
-                <div>
-                  <S.Ball />
-                  <p key={key}>{username}</p>
-                </div>
-              ))}
-            </S.Users>
-          </div>
-        </S.Content>
+          <S.Users>
+            {clientsList.map((username, key) => (
+              <div>
+                <S.Ball />
+                <p key={key}>{username}</p>
+              </div>
+            ))}
+          </S.Users>
+        </S.Sidesection>
+        <S.RoomSection>
+          <div>Select room</div>
+          <S.RoomSelect
+            name="select_room"
+            id="select_room"
+            size={5}
+            onChange={(event) => {
+              setRoom(+event.target.value);
+            }}
+          >
+            {roomList?.map((data, key) =>
+              data.status === "starting" ? (
+                <S.RoomOption
+                  key={key}
+                  value={data.roomId}
+                  disabled
+                  style={style}
+                >
+                  Room {data.roomId} ({data.status})
+                </S.RoomOption>
+              ) : (
+                <S.RoomOption key={key} value={data.roomId}>
+                  Room {data.roomId} ({data.status})
+                </S.RoomOption>
+              )
+            )}
+          </S.RoomSelect>
+          <button onClick={() => joinRoom()}>Enter the room</button>
+        </S.RoomSection>
       </S.Container>
     </>
   );
