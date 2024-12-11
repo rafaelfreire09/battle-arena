@@ -6,6 +6,7 @@ import * as S from "./styles";
 
 import { SocketContext } from "../../context/Socket";
 import { useAuth } from "../../context/AuthProvider";
+import Button from "../../components/Button";
 
 export default function Login() {
   const socket = useContext(SocketContext);
@@ -47,7 +48,7 @@ export default function Login() {
     };
   }, [socket]);
 
-  function redirectToLobby() {
+  const redirectToLobby = () => {
     if (!isConnected) {
       setConnectionError(true);
       return;
@@ -89,7 +90,13 @@ export default function Login() {
                     setUsernameInput(event.target.value);
                   }}
                 />
-                <button onClick={redirectToLobby}>Enter the lobby</button>
+                <Button 
+                  label="Enter the lobby"
+                  width="250"
+                  height="55"
+                  colorType="green"
+                  onClick={redirectToLobby}
+                />
               </>
             )}
           </S.Form>

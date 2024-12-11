@@ -38,24 +38,11 @@ export const EndGameSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  button {
-    padding: 1rem 2rem;
-    background-color: #30cc51;
-    border: 0;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
-    width: 250px;
-    margin: 1rem;
-    &:hover {
-      filter: brightness(0.9);
-    }
-    transition: filter 0.2s;
-  }
 `;
 
 export const Result = styled.div`
+  margin: 0 0 2rem 0;
+
   span {
     color: orange;
     font-weight: 500;

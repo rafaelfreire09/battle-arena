@@ -16,6 +16,7 @@ import {
 } from "../../utils/general";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
+import Button from "../../components/Button";
 
 export const GameMatch = () => {
   const socket = useContext(SocketContext);
@@ -124,7 +125,7 @@ export const GameMatch = () => {
     });
   }, [player1Hud.life]);
 
-  function returnToLobby() {
+  const returnToLobby = () => {
     socket.emit("join_lobby", {
       client_id: socket.id,
       username: username!,
@@ -209,13 +210,13 @@ export const GameMatch = () => {
           <S.Result>
             <span>{endGame}</span>{" "}
           </S.Result>
-          <button
-            onClick={() => {
-              returnToLobby();
-            }}
-          >
-            Return to lobby
-          </button>
+          <Button 
+            label="Return to lobby"
+            width="250"
+            height="55"
+            colorType="green"
+            onClick={returnToLobby}
+          />
         </S.EndGameSection>
       )}
     </S.Container>

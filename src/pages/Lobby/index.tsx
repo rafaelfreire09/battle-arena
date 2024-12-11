@@ -6,6 +6,7 @@ import { Message, Rooms } from "../../types/Socket";
 import { useNavigate } from "react-router-dom";
 import Chat from "../../components/Chat";
 import { useAuth } from "../../context/AuthProvider";
+import Button from "../../components/Button";
 
 export default function Lobby() {
   const socket = useContext(SocketContext);
@@ -99,7 +100,7 @@ export default function Lobby() {
     }
   };
 
-  function joinRoom() {
+  const joinRoom = () => {
     socket.emit("join_room", {
       client_id: socket.id,
       username: username!,
@@ -165,7 +166,13 @@ export default function Lobby() {
               )
             )}
           </S.RoomSelect>
-          <button onClick={() => joinRoom()}>Enter the room</button>
+          <Button 
+            label="Enter the room"
+            width="250"
+            height="55"
+            colorType="green"
+            onClick={joinRoom}
+          />
         </S.RoomSection>
       </S.Container>
     </>

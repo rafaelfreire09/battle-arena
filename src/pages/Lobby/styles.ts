@@ -10,21 +10,6 @@ export const Container = styled.div`
   height: 100vh;
   color: white;
   gap: 0 300px;
-
-  button {
-    padding: 1rem 2rem;
-    background-color: #30cc51;
-    border: 0;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
-    width: 250px;
-    margin: 1rem;
-    &:hover {
-      filter: brightness(0.9);
-    }
-    transition: filter 0.2s;
-  }
 `;
 
 export const Sidesection = styled.div`
@@ -82,7 +67,7 @@ export const RoomSection = styled.div`
 `;
 
 export const RoomSelect = styled.select`
-  margin: 1rem 2rem;
+  margin: 1rem 2rem 2rem 2rem;
 
   height: 580px;
   width: 560px;

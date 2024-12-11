@@ -9,21 +9,6 @@ export const Container = styled.div`
 
   padding: 2rem;
 
-  button {
-    padding: 1rem 2rem;
-    background-color: #30cc51;
-    border: 0;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
-    width: 250px;
-    margin: 1rem;
-    &:hover {
-      filter: brightness(0.9);
-    }
-    transition: filter 0.2s;
-  }
-
   input {
     background-color: white;
     text-decoration: none;
@@ -31,7 +16,7 @@ export const Container = styled.div`
     width: 250px;
     color: black;
 
-    margin: 1rem;
+    margin: 1rem 1rem 2rem 1rem;
     height: 25px;
     border: none;
     outline: none;
