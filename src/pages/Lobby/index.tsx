@@ -11,7 +11,7 @@ export default function Lobby() {
   const socket = useContext(SocketContext);
   let navigate = useNavigate();
   const { username, setRoomId, setOpponentId } = useAuth();
-  
+
   const [room, setRoom] = useState(0);
   const [message, setMessage] = useState("");
   const [messagesList, setMessagesList] = useState<Message[]>([]);
@@ -83,9 +83,15 @@ export default function Lobby() {
 
   const handleKeyPress = (event: string, text: string) => {
     if (event === "Enter") {
+      const date = new Date();
+
+      const dateString =
+        String(date.getHours()) + ":" + String(date.getMinutes());
+
       const data = {
         username: username!,
         text,
+        hour: dateString,
       };
 
       socket.emit("message", data);

@@ -28,6 +28,7 @@ export default function Chat({ messagesList, username }: ChatProps) {
                 <S.MessageSection align="end">
                   <S.UserMessage>You</S.UserMessage>
                   <S.TextMessage>{data.text}</S.TextMessage>
+                  <S.TimestampMessage>{data.hour}</S.TimestampMessage>
                 </S.MessageSection>
               </S.MessageWrapper>
             );
@@ -37,6 +38,7 @@ export default function Chat({ messagesList, username }: ChatProps) {
                 <S.MessageSection align="start">
                   <S.UserMessage>{data.username}</S.UserMessage>
                   <S.TextMessage>{data.text}</S.TextMessage>
+                  <S.TimestampMessage>{data.hour}</S.TimestampMessage>
                 </S.MessageSection>
               </S.MessageWrapper>
             );
