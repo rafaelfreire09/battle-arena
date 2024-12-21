@@ -58,3 +58,17 @@ export const RoomForm = styled.form`
   align-items: center;
   justify-content: center;
 `;
+
+export const CreateRoomSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 20px;
+`;
+
+export const ButtonSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+`;

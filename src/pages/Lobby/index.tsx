@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 
 import { SocketContext } from "../../context/Socket";
 import { Message, Rooms } from "../../types/Socket";
@@ -15,11 +15,17 @@ export default function Lobby() {
   let navigate = useNavigate();
   const { username, setRoomId, setOpponentId } = useAuth();
 
-  const [room, setRoom] = useState(0);
   const [message, setMessage] = useState("");
   const [messagesList, setMessagesList] = useState<Message[]>([]);
-  const [roomList, setRoomList] = useState<Rooms[]>();
   const [clientsList, setClientsList] = useState<string[]>([]);
+
+  const [room, setRoom] = useState("");
+  const [roomList, setRoomList] = useState<Rooms[]>();
+  const [roomName, setRoomName] = useState("");
+
+  const [roomJoined, setRoomJoined] = useState("");
+  const [isRoomSelected, setIsRoomSelected] = useState(false);
+
   const enterRoomButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -102,6 +108,15 @@ export default function Lobby() {
       setMessage("");
     }
   };
+
+  const handleMessageInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
+
+  const handleRoomNameInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setRoomName(event.target.value);
+  };
+
   const handleRoomSelect = (selectedRoom: string) => {
     setRoom(selectedRoom);
     setIsRoomSelected(selectedRoom !== "");
@@ -149,6 +164,39 @@ export default function Lobby() {
       setIsRoomSelected(false);
     }
   };
+
+  const handleExitRoom = () => {
+    if (roomJoined != "") {
+      socket.emit(
+        "exit_room",
+        {
+          client_id: socket.id,
+          username: username!,
+          roomId: roomJoined,
+        },
+        (data) => {
+          if (data.client_id === socket.id) {
+            setRoom("");
+            setIsRoomSelected(false);
+            setRoomJoined("");
+          }
+        }
+      );
+    }
+  };
+
+  const handleCreateRoom = () => {
+    if (roomName != "") {
+      socket.emit("create_room", {
+        client_id: socket.id,
+        username: username!,
+        roomName: roomName,
+      });
+
+      setRoomName("");
+    }
+  };
+
   const handleDeleteRoom = (roomId: string) => {
     if (roomId != "") {
       socket.emit("delete_room", {
@@ -194,6 +242,35 @@ export default function Lobby() {
             value={room}
             buttonRef={enterRoomButtonRef}
           />
+          <S.CreateRoomSection>
+            <TextInput
+              placeholder="Type a name for your room"
+              value={roomName}
+              onChange={handleRoomNameInput}
+              width="180"
+              height="35"
+            />
+            <Button
+              type="button"
+              label={"Create room"}
+              width="120"
+              height="55"
+              colorType="default"
+              onClick={handleCreateRoom}
+              disabled={roomName == ""}
+            />
+          </S.CreateRoomSection>
+          <S.ButtonSection>
+            {roomJoined != "" && (
+              <Button
+                type="button"
+                label="Leave room"
+                width="250"
+                height="55"
+                colorType="red"
+                onClick={handleExitRoom}
+              />
+            )}
             <Button
               ref={enterRoomButtonRef}
               type="submit"
@@ -203,7 +280,7 @@ export default function Lobby() {
               colorType="green"
               disabled={handleMainButtonIsDisable()}
             />
-          
+          </S.ButtonSection>
         </S.RoomForm>
       </S.Container>
     </>
