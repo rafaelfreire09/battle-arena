@@ -15,14 +15,14 @@ export interface PlayerInfo {
 export interface JoinRoom {
   client_id: string;
   username: string;
-  roomId: number;
+  roomId: string;
 }
 
 export interface HandleRoom {
   client_id: string;
   username: string;
   roomName?: string;
-  roomId?: number;
+  roomId?: string;
 }
 
 export interface Message {
@@ -37,7 +37,7 @@ export interface Player {
 }
 
 export interface Rooms {
-  roomId: number;
+  roomId: string;
   roomOwnerClientId: string;
   roomOwner: string;
   roomName: string;
@@ -66,7 +66,7 @@ export interface OpponentLife {
 export interface EndGame {
   winner: string;
   opponentId: string;
-  roomId: number;
+  roomId: string;
 }
 
 export interface ServerToClientEvents {

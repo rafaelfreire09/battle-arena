@@ -79,7 +79,7 @@ export const GameMatch = () => {
         socket.emit("endGame", {
           winner: username!,
           opponentId: opponentId!,
-          roomId: +roomId!,
+          roomId: roomId!,
         });
       }
       setPlayer2((player2) => ({

@@ -63,7 +63,7 @@ export default function Lobby() {
             );
 
             if (opponent !== undefined) {
-              setRoomId(String(room.roomId));
+              setRoomId(room.roomId);
               setOpponentId(opponent.client_id);
 
               navigate("/game-match");
@@ -152,7 +152,7 @@ export default function Lobby() {
     socket.emit("join_room", {
       client_id: socket.id,
       username: username!,
-      room,
+      roomId: room,
     });
 
     setRoomJoined(room);
