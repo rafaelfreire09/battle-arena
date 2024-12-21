@@ -148,23 +148,20 @@ export const GameMatch = () => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     switch (event.code) {
       case "KeyA":
-      case "ArrowLeft":
         player1.moveLeft();
         break;
       case "KeyW":
-      case "ArrowUp":
         player1.moveUp();
         break;
       case "KeyD":
-      case "ArrowRight":
         player1.moveRight();
         break;
       case "KeyS":
-      case "ArrowDown":
         player1.moveDown();
         break;
     }
   };
+  
   return (
     <S.Container>
       <S.Wrapper
