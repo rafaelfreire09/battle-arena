@@ -52,12 +52,12 @@ export default function Lobby() {
   useEffect(() => {
     socket.on("list_rooms", (data) => {
       data.map((room) => {
-        if (room.status === "waiting" && room.players.length >= 2) {
-          const result = room.players.find(
+        if (room.status === "full") {
+          const playerOnRoom = room.players.find(
             (player) => player.client_id === socket.id
           );
 
-          if (result !== undefined) {
+          if (playerOnRoom !== undefined && room.players.length >= 2) {
             const opponent = room.players.find(
               (player) => player.client_id !== socket.id
             );
