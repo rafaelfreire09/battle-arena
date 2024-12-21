@@ -22,6 +22,16 @@ const colorsType = {
     &:hover {
       filter: brightness(0.7);
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #3f3f3f;
+      border: 1px solid #3f3f3f;
+      
+      span {
+        color: #676767 !important;
+      }
+    }
   `,
   red: css<Props>`
     background-color: ${mainColors.error.normal};
@@ -32,6 +42,20 @@ const colorsType = {
       color: ${mainColors.white.normal};
       text-decoration: none;
     }
+
+    &:hover {
+      filter: brightness(0.7);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #3f3f3f;
+      border: 1px solid #3f3f3f;
+      
+      span {
+        color: #676767 !important;
+      }
+    }
   `,
   green: css<Props>`
     background-color: ${mainColors.success.normal};
@@ -41,6 +65,20 @@ const colorsType = {
     a {
       color: ${mainColors.white.normal};
       text-decoration: none;
+    }
+
+    &:hover {
+      filter: brightness(0.7);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #3f3f3f;
+      border: 1px solid #3f3f3f;
+      
+      span {
+        color: #676767 !important;
+      }
     }
   `,
 };
@@ -70,11 +108,7 @@ export const Wrapper = styled.button<Props>`
     cursor: pointer;
   }
 
-  ${({ colorType }) => colorsType[colorType]};
-
-  img:hover {
-    opacity: 50%;
-  }
+  ${({ colorType }) => colorsType[colorType]}
 
   &:hover {
     filter: brightness(0.9);

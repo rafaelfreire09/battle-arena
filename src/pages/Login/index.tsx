@@ -65,17 +65,19 @@ export default function Login() {
 
       navigate("/lobby");
     }
-  }
+  };
 
   return (
     <>
       <S.Container>
         <S.FormWrapper>
           <S.Title>Battle Arena</S.Title>
-          <S.Form>
+          <S.LoginForm onSubmit={redirectToLobby}>
             {connectionError && (
               <>
-                <S.ConnectionWarningTitle>Connecting...</S.ConnectionWarningTitle>
+                <S.ConnectionWarningTitle>
+                  Connecting...
+                </S.ConnectionWarningTitle>
                 <S.ConnectionWarningSubtitle>
                   If it takes too long, please contact the developer.
                 </S.ConnectionWarningSubtitle>
@@ -89,16 +91,19 @@ export default function Login() {
                     setUsernameInput(event.target.value);
                   }}
                 />
-                <Button 
-                  label="Enter the lobby"
+                <Button
+                  type="submit"
+                  label={
+                    usernameInput == "" ? "Type a name" : "Enter the lobby"
+                  }
                   width="250"
                   height="55"
                   colorType="green"
-                  onClick={redirectToLobby}
+                  disabled={usernameInput == ""}
                 />
               </S.FormSection>
             )}
-          </S.Form>
+          </S.LoginForm>
         </S.FormWrapper>
       </S.Container>
     </>

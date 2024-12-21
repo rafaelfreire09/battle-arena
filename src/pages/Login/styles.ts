@@ -10,7 +10,7 @@ export const Container = styled.div`
   padding: 2rem;
 `;
 
-export const FormWrapper = styled.form`
+export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -25,13 +25,13 @@ export const FormWrapper = styled.form`
   margin: auto;
 `;
 
-export const Title = styled.form`
+export const Title = styled.div`
   color: white;
   font-weight: 800;
   font-size: 36px;
 `;
 
-export const Form = styled.form`
+export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
 
@@ -42,13 +42,23 @@ export const Form = styled.form`
   margin-top: 70px;
 `;
 
-export const ConnectionWarningTitle = styled.form`
+export const ConnectionWarningTitle = styled.div`
   color: #ffffff;
   margin-bottom: 10px;
   font-size: 20px;
 `;
 
-export const ConnectionWarningSubtitle = styled.form`
+export const ConnectionWarningSubtitle = styled.div`
   color: gray;
   font-size: 14px;
+`;
+
+export const FormSection = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 0;
 `;

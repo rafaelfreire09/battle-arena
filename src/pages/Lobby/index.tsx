@@ -100,17 +100,40 @@ export default function Lobby() {
       setMessage("");
     }
   };
+  const handleMainButtonLabel = (): string => {
+    if (roomJoined != "") {
+      return "Waiting another player";
+    }
 
-  const joinRoom = () => {
+    if (!isRoomSelected) {
+      return "Select a room";
+    }
+
+    return "Enter the room";
+  };
+
+  const handleMainButtonIsDisable = (): boolean => {
+    if (!isRoomSelected) {
+      return true;
+    }
+
+    if (roomJoined != "") {
+      return true;
+    }
+
+    return false;
+  };
+
+  const handleJoinRoom = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     socket.emit("join_room", {
       client_id: socket.id,
       username: username!,
       room,
     });
-  }
 
-  const handleMessageInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.target.value);
+    setRoomJoined(room);
   };
 
   const style = {
@@ -141,7 +164,7 @@ export default function Lobby() {
             ))}
           </S.Users>
         </S.Sidesection>
-        <S.RoomSection>
+        <S.RoomForm onSubmit={handleJoinRoom}>
           <div>Select room</div>
           <S.RoomSelect
             name="select_room"
@@ -168,14 +191,17 @@ export default function Lobby() {
               )
             )}
           </S.RoomSelect>
-          <Button 
-            label="Enter the room"
-            width="250"
-            height="55"
-            colorType="green"
-            onClick={joinRoom}
-          />
-        </S.RoomSection>
+            <Button
+              ref={enterRoomButtonRef}
+              type="submit"
+              label={handleMainButtonLabel()}
+              width="250"
+              height="55"
+              colorType="green"
+              disabled={handleMainButtonIsDisable()}
+            />
+          
+        </S.RoomForm>
       </S.Container>
     </>
   );
