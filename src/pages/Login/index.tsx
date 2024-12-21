@@ -7,6 +7,7 @@ import * as S from "./styles";
 import { SocketContext } from "../../context/Socket";
 import { useAuth } from "../../context/AuthProvider";
 import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
 
 export default function Login() {
   const socket = useContext(SocketContext);
@@ -81,10 +82,8 @@ export default function Login() {
               </>
             )}
             {isConnected && (
-              <>
-                <input
-                  type="text"
-                  name="username"
+              <S.FormSection>
+                <TextInput
                   placeholder="Type your name..."
                   onChange={(event) => {
                     setUsernameInput(event.target.value);
@@ -97,7 +96,7 @@ export default function Login() {
                   colorType="green"
                   onClick={redirectToLobby}
                 />
-              </>
+              </S.FormSection>
             )}
           </S.Form>
         </S.FormWrapper>

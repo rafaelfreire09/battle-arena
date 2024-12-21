@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Chat from "../../components/Chat";
 import { useAuth } from "../../context/AuthProvider";
 import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
 
 export default function Lobby() {
   const socket = useContext(SocketContext);
@@ -122,9 +123,10 @@ export default function Lobby() {
         <S.Sidesection>
           <S.ChatWrapper>
             <Chat messagesList={messagesList} username={username!} />
-            <input
+            <TextInput
               placeholder="Type your message"
-              id="message_input"
+              width="300"
+              height="35"
               value={message}
               onChange={handleMessageInput}
               onKeyUp={(event) => handleKeyPress(event.key, event.target.value)}

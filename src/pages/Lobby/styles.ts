@@ -23,14 +23,7 @@ export const Sidesection = styled.div`
   }
 `;
 
-export const ChatWrapper = styled.div`
-  input {
-    width: 300px;
-    border: 1px solid #c4c4c4;
-    outline: none;
-    padding: 1rem;
-  }
-`;
+export const ChatWrapper = styled.div``;
 
 export const Users = styled.div`
   display: flex;
