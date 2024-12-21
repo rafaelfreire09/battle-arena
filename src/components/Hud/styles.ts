@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 3rem 0rem 0rem 2rem;
+  margin: 3rem 1.5rem 3rem 1.5rem;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 230px;
 `;
 
 export const LifeLabel = styled.div`

@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useCharacter } from "../../hooks/useCharacter";
 
 import { CharacterSides } from "../../types/CharacterSides";
@@ -22,6 +22,42 @@ export const GameMatch = () => {
   const socket = useContext(SocketContext);
   const navigate = useNavigate();
   const { username, roomId, opponentId, clearRoomAndOpponentId } = useAuth();
+
+  const mapRef = useRef<HTMLDivElement>(null);
+  const size = 30;
+
+  const [mapPadding, setMapPadding] = useState({
+    left: 19.5,
+    top: 8.65,
+  });
+
+  // Function to calculate map padding
+  const calculateMapPadding = () => {
+    if (mapRef.current) {
+      const mapRect = mapRef.current.getBoundingClientRect();
+
+      // Calculates padding in relative units
+      const leftPadding = mapRect.left / size;
+      const topPadding = mapRect.top / size;
+
+      setMapPadding({
+        left: leftPadding,
+        top: topPadding,
+      });
+    }
+  };
+
+  // Effect to calculate initial padding e add resize listener
+  useEffect(() => {
+    calculateMapPadding();
+
+    const handleResize = () => {
+      calculateMapPadding();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [endGame, setEndGame] = useState("");
 
@@ -50,7 +86,7 @@ export const GameMatch = () => {
     if (!roomId || !opponentId) {
       navigate("/lobby");
     }
-    
+
     if (!username) {
       navigate("/");
     }
@@ -131,10 +167,10 @@ export const GameMatch = () => {
       username: username!,
     });
 
-    clearRoomAndOpponentId()
+    clearRoomAndOpponentId();
 
     navigate("/lobby");
-  }
+  };
 
   const handleMouseClick = () => {
     if (canHit(player1.x, player1.y, player2.x, player2.y, player1.side)) {
@@ -169,45 +205,51 @@ export const GameMatch = () => {
         onKeyDown={handleKeyDown}
         onClick={handleMouseClick}
       >
-        <S.Map>
+        <S.Map 
+          ref={mapRef}
+        >
           <Character
-            x={player1.x}
-            y={player1.y}
+            x={(player1.x + mapPadding.left) * size}
+            y={(player1.y + mapPadding.top) * size}
             side={player1.side}
             name={player1.name}
             weapon={player1Hud.weaponImage}
+            size={size}
           />
           <Character
-            x={player2.x}
-            y={player2.y}
+            x={(player2.x + mapPadding.left) * size}
+            y={(player2.y + mapPadding.top) * size}
             side={player2.side}
             name={player2.name}
+            size={size}
           />
+          {WeaponsList.map(
+            (weapon, index) =>
+              weapon.name != "Punch" && (
+                <S.Weapon
+                  top={(weapon.defaultPosition.y + mapPadding.top) * size}
+                  left={(weapon.defaultPosition.x + mapPadding.left) * size}
+                  src={weapon.image}
+                  key={index}
+                  size={size}
+                />
+              )
+          )}
         </S.Map>
 
-        <div>
-          <Hud
-            life={player1Hud.life}
-            weapon={player1Hud.weapon}
-            strengh={player1Hud.damage}
-            opponentsLife={player2.life}
-          />
-          {WeaponsList.map((weapon, index) => (
-            <S.Weapon
-              top={weapon.defaultPosition.y}
-              left={weapon.defaultPosition.x}
-              src={weapon.image}
-              key={index}
-            />
-          ))}
-        </div>
+        <Hud
+          life={player1Hud.life}
+          weapon={player1Hud.weapon}
+          strengh={player1Hud.damage}
+          opponentsLife={player2.life}
+        />
       </S.Wrapper>
       {endGame && (
         <S.EndGameSection>
           <S.Result>
             <span>{endGame}</span>{" "}
           </S.Result>
-          <Button 
+          <Button
             label="Return to lobby"
             width="250"
             height="55"

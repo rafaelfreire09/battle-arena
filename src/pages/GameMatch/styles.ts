@@ -2,12 +2,16 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: #24282f;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
   color: #fff;
 `;
 
 export const Wrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `;
 
 export const Map = styled.div`
@@ -21,11 +25,12 @@ export const Map = styled.div`
 type WeaponProps = {
   top: number;
   left: number;
+  size: number;
 };
 
 export const Weapon = styled.img<WeaponProps>`
-  width: 30px;
-  height: 30px;
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
 
   position: absolute;
   top: ${({ top }) => top}px;

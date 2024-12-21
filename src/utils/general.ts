@@ -16,8 +16,8 @@ export const WeaponsList = [
     name: "Punch",
     damage: 0.5,
     defaultPosition: {
-      x: -30,
-      y: -30,
+      x: -1,
+      y: -1,
     },
     image:
       "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgetdrawings.com%2Fvectors%2Ffist-punch-vector-6.png&f=1&nofb=1",
@@ -26,8 +26,8 @@ export const WeaponsList = [
     name: "Sword",
     damage: 5,
     defaultPosition: {
-      x: 60,
-      y: 60,
+      x: 2,
+      y: 2,
     },
     image:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebstockreview.net%2Fimages%2Fclipart-sword-vector-1.png&f=1&nofb=1",
@@ -36,8 +36,8 @@ export const WeaponsList = [
     name: "Axe",
     damage: 7.5,
     defaultPosition: {
-      x: 120,
-      y: 270,
+      x: 4,
+      y: 9,
     },
     image:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn3.iconfinder.com%2Fdata%2Ficons%2Fhalloween%2F512%2Fhatchet-512.png&f=1&nofb=1",
@@ -46,8 +46,8 @@ export const WeaponsList = [
     name: "Halberd",
     damage: 10,
     defaultPosition: {
-      x: 420,
-      y: 120,
+      x: 14,
+      y: 4,
     },
     image:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd30y9cdsu7xlg0.cloudfront.net%2Fpng%2F440119-200.png&f=1&nofb=1",
