@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Chat = styled.div`
   width: 100%;
   background-color: white;
+  border-radius: 8px;
   height: 500px;
   width: 400px;
   color: #24282f;
