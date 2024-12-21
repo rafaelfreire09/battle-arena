@@ -52,26 +52,9 @@ export const Ball = styled.div`
   background-color: #30cc51;
 `;
 
-export const RoomSection = styled.div`
+export const RoomForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-export const RoomSelect = styled.select`
-  margin: 1rem 2rem 2rem 2rem;
-
-  height: 580px;
-  width: 560px;
-  border: none;
-  outline: none;
-`;
-
-export const RoomOption = styled.option`
-  cursor: auto;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 1rem;
-  color: #0a0a0a;
 `;

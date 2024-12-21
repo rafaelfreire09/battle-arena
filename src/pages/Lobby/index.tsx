@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Chat from "../../components/Chat";
 import { useAuth } from "../../context/AuthProvider";
 import Button from "../../components/Button";
+import CustomRoomSelect from "../../components/CustomRoomSelect";
 import TextInput from "../../components/TextInput";
 
 export default function Lobby() {
@@ -19,6 +20,7 @@ export default function Lobby() {
   const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [roomList, setRoomList] = useState<Rooms[]>();
   const [clientsList, setClientsList] = useState<string[]>([]);
+  const enterRoomButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!username) {
@@ -100,6 +102,11 @@ export default function Lobby() {
       setMessage("");
     }
   };
+  const handleRoomSelect = (selectedRoom: string) => {
+    setRoom(selectedRoom);
+    setIsRoomSelected(selectedRoom !== "");
+  };
+
   const handleMainButtonLabel = (): string => {
     if (roomJoined != "") {
       return "Waiting another player";
@@ -136,8 +143,20 @@ export default function Lobby() {
     setRoomJoined(room);
   };
 
-  const style = {
-    cursor: "not-allowed",
+
+  const handleBlur = () => {
+    if (room != "") {
+      setIsRoomSelected(false);
+    }
+  };
+  const handleDeleteRoom = (roomId: string) => {
+    if (roomId != "") {
+      socket.emit("delete_room", {
+        client_id: socket.id,
+        username: username!,
+        roomId: roomId,
+      });
+    }
   };
 
   return (
@@ -166,31 +185,15 @@ export default function Lobby() {
         </S.Sidesection>
         <S.RoomForm onSubmit={handleJoinRoom}>
           <div>Select room</div>
-          <S.RoomSelect
-            name="select_room"
-            id="select_room"
-            size={5}
-            onChange={(event) => {
-              setRoom(+event.target.value);
-            }}
-          >
-            {roomList?.map((data, key) =>
-              data.status === "starting" ? (
-                <S.RoomOption
-                  key={key}
-                  value={data.roomId}
-                  disabled
-                  style={style}
-                >
-                  Room {data.roomId} ({data.status})
-                </S.RoomOption>
-              ) : (
-                <S.RoomOption key={key} value={data.roomId}>
-                  Room {data.roomId} ({data.status})
-                </S.RoomOption>
-              )
-            )}
-          </S.RoomSelect>
+          <CustomRoomSelect
+            rooms={roomList || []}
+            onChange={handleRoomSelect}
+            currentUsername={username!}
+            onDelete={handleDeleteRoom}
+            onBlur={handleBlur}
+            value={room}
+            buttonRef={enterRoomButtonRef}
+          />
             <Button
               ref={enterRoomButtonRef}
               type="submit"
