@@ -162,6 +162,16 @@ export const GameMatch = () => {
   }, [player1Hud.life]);
 
   const returnToLobby = () => {
+    socket.emit(
+      "exit_room",
+      {
+        client_id: socket.id,
+        username: username!,
+        roomId: roomId!,
+      },
+      (data) => {}
+    );
+
     socket.emit("join_lobby", {
       client_id: socket.id,
       username: username!,
@@ -173,6 +183,8 @@ export const GameMatch = () => {
   };
 
   const handleMouseClick = () => {
+    if (endGame) return;
+
     if (canHit(player1.x, player1.y, player2.x, player2.y, player1.side)) {
       socket.emit("hit", {
         damage: player1Hud.damage,
@@ -182,6 +194,8 @@ export const GameMatch = () => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (endGame) return;
+
     switch (event.code) {
       case "KeyA":
         player1.moveLeft();
@@ -247,9 +261,11 @@ export const GameMatch = () => {
       {endGame && (
         <S.EndGameSection>
           <S.Result>
+            <S.ResultLabel>The match is over!</S.ResultLabel>
             <span>{endGame}</span>{" "}
           </S.Result>
           <Button
+            type="button"
             label="Return to lobby"
             width="250"
             height="55"
