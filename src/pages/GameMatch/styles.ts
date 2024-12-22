@@ -14,9 +14,9 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 
-export const Map = styled.div`
-  width: 480px;
-  height: 480px;
+export const Map = styled.div<{ size: number }>`
+  width: ${({ size }) => size * 16}px;
+  height: ${({ size }) => size * 16}px;
   background-image: url("/assets/map.png");
   background-position: left top;
   background-size: 100%;

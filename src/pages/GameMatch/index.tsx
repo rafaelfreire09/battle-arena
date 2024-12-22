@@ -24,7 +24,7 @@ export const GameMatch = () => {
   const { username, roomId, opponentId, clearRoomAndOpponentId } = useAuth();
 
   const mapRef = useRef<HTMLDivElement>(null);
-  const size = 30;
+  const size = 55;
 
   const [mapPadding, setMapPadding] = useState({
     left: 19.5,
@@ -197,7 +197,7 @@ export const GameMatch = () => {
         break;
     }
   };
-  
+
   return (
     <S.Container>
       <S.Wrapper
@@ -205,9 +205,15 @@ export const GameMatch = () => {
         onKeyDown={handleKeyDown}
         onClick={handleMouseClick}
       >
-        <S.Map 
-          ref={mapRef}
-        >
+        <S.Map ref={mapRef} size={size}>
+          <Character
+            x={(player2.x + mapPadding.left) * size}
+            y={(player2.y + mapPadding.top) * size}
+            side={player2.side}
+            name={player2.name}
+            size={size}
+            color="#e20b0b"
+          />
           <Character
             x={(player1.x + mapPadding.left) * size}
             y={(player1.y + mapPadding.top) * size}
@@ -215,13 +221,7 @@ export const GameMatch = () => {
             name={player1.name}
             weapon={player1Hud.weaponImage}
             size={size}
-          />
-          <Character
-            x={(player2.x + mapPadding.left) * size}
-            y={(player2.y + mapPadding.top) * size}
-            side={player2.side}
-            name={player2.name}
-            size={size}
+            color="#15803d"
           />
           {WeaponsList.map(
             (weapon, index) =>
