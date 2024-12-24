@@ -7,11 +7,29 @@ export const Chat = styled.div`
   height: 500px;
   width: 400px;
   color: #24282f;
-  overflow: scroll;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background:rgb(124, 124, 124);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    width: 20px;
+    background: #6e6e6e;
+  }
 `;
 
 export const MessageWrapper = styled.div<{
-  position: 'left' | 'right'
+  position: "left" | "right";
 }>`
   display: flex;
   justify-content: ${(props) => props.position};
@@ -20,12 +38,12 @@ export const MessageWrapper = styled.div<{
 `;
 
 export const MessageSection = styled.div<{
-  align: 'start' | 'end'
+  align: "start" | "end";
 }>`
   display: flex;
   flex-direction: column;
   align-items: ${(props) => props.align};
-  `;
+`;
 
 export const UserMessage = styled.div`
   font-size: 13px;

@@ -33,6 +33,10 @@ export const Users = styled.div`
   width: 110px;
   margin: 0 15px 0 10px;
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   p {
     padding: 0.1rem;
   }

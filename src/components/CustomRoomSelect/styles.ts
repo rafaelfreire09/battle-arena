@@ -8,6 +8,24 @@ export const SelectContainer = styled.div`
   border-radius: 8px;
   overflow-y: auto;
   background: white;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background:rgb(124, 124, 124);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    width: 20px;
+    background: #6e6e6e;
+  }
 `;
 
 export const Option = styled.div<{ disabled?: boolean; isSelected?: boolean }>`
