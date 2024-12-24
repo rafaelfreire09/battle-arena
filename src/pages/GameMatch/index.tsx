@@ -182,6 +182,30 @@ export const GameMatch = () => {
     navigate("/lobby");
   };
 
+  const handleResetMatch = () => {
+    if (endGame) {
+      player1.y = GameRules.playerConfig.defaultPosition.y_asis;
+      player1.x = GameRules.playerConfig.defaultPosition.x_asis;
+
+      setPlayer1Hud({
+        life: GameRules.playerConfig.defaultLifeHealth,
+        weapon: WeaponsList[0].name,
+        weaponImage: WeaponsList[0].image,
+        damage: WeaponsList[0].damage,
+      });
+
+      setPlayer2({
+        name: "",
+        side: "down" as CharacterSides,
+        x: GameRules.playerConfig.defaultPosition.x_asis,
+        y: GameRules.playerConfig.defaultPosition.y_asis,
+        life: GameRules.playerConfig.defaultLifeHealth,
+      });
+
+      setEndGame('')
+    }
+  };
+
   const handleMouseClick = () => {
     if (endGame) return;
 
@@ -264,14 +288,24 @@ export const GameMatch = () => {
             <S.ResultLabel>The match is over!</S.ResultLabel>
             <span>{endGame}</span>{" "}
           </S.Result>
-          <Button
-            type="button"
-            label="Return to lobby"
-            width="250"
-            height="55"
-            colorType="green"
-            onClick={returnToLobby}
-          />
+          <S.ButtonSection>
+            <Button
+              type="button"
+              label="Rematch"
+              width="150"
+              height="55"
+              colorType="green"
+              onClick={handleResetMatch}
+            />
+            <Button
+              type="button"
+              label="Return to lobby"
+              width="200"
+              height="55"
+              colorType="default"
+              onClick={returnToLobby}
+            />
+          </S.ButtonSection>
         </S.EndGameSection>
       )}
     </S.Container>

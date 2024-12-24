@@ -69,3 +69,11 @@ export const ResultLabel = styled.div`
   font-size: 2.5rem;
   margin-bottom: 1rem;
 `;
+
+export const ButtonSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+`;
