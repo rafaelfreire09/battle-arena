@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   text-align: center;
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: #24282f;
+  
   height: 100vh;
-
-  padding: 2rem;
 `;
 
 export const FormWrapper = styled.div`
